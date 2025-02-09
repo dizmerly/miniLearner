@@ -1,0 +1,101 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #ffebee;
+    font-family: 'Helvetica', sans-serif;
+    font-weight: 550;
+}
+
+.container {
+    position: relative;
+}
+
+.envelope {
+    position: relative;
+    width: 400px;
+    height: 240px;
+    cursor: pointer;
+}
+
+.flap {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 200px solid transparent;
+    border-right: 200px solid transparent;
+    border-bottom: 120px solid #ff8a80;
+    top: -120px;
+    transform-origin: bottom; /* Rotate from the top */
+    transform: rotateX(180deg); /* Start upside down */
+    transition: transform 0.5s ease, opacity 0.5s ease 0.5s; /* Added opacity transition */
+    z-index: 2;
+}
+
+.body {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #ff5252;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    transition: opacity 0.5s ease 0.5s; /* Delay to match flap animation */
+}
+
+.paper {
+    position: absolute;
+    width: 90%;
+    height: 300px;
+    background: white;
+    bottom: 10px; /* Start inside the envelope */
+    left: 5%;
+    transform: translateY(100%); /* Start hidden below the envelope */
+    opacity: 0; /* Initially invisible */
+    transition: transform 0.8s ease 0.5s, opacity 0.5s ease 0.5s; /* Delay to match flap animation */
+    padding: 30px;
+    box-sizing: border-box;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 0;
+}
+
+.paper p {
+    font-size: 36px;
+    margin: 0;
+    color: #d32f2f;
+    text-align: center;
+}
+
+.heart {
+    font-size: 72px;
+    margin-top: 20px;
+    animation: beat 1.2s infinite;
+    color: #f44336;
+}
+
+.envelope.open .flap {
+    transform: rotateX(0deg); /* Flip up to the original position */
+    opacity: 0; /* Flap disappears */
+}
+
+.envelope.open .body {
+    opacity: 0; /* Envelope body disappears */
+}
+
+.envelope.open .paper {
+    transform: translateY(0); /* Slide up to reveal */
+    opacity: 1; /* Paper becomes visible */
+}
+
+@keyframes beat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+}
